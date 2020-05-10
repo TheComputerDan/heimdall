@@ -1,7 +1,7 @@
 package main
 
 import (
-	app "heimdall/docker_agent/web/api"
+	app "github.com/TheComputerDan/heimdall/docker_agent/web/api"
 )
 
 func main() {
