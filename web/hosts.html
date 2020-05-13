@@ -1,11 +1,11 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Images</title>
+    <title>Hosts</title>
     <link rel="stylesheet" href="uikit-3.4.6/css/uikit.css">
     <script src="uikit-3.4.6/js/uikit.min.js"></script>
     <script src="uikit-3.4.6/js/uikit-icons.min.js"></script>
@@ -14,7 +14,7 @@
 
 <body>
 
-    <div class="uk-navbar-container uk-margin" uk-navbar>
+    <div class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-left">
             <a href="index.html" class="uk-navbar-item uk-logo">Heimdall</a>
             <ul class="uk-navbar-nav">
@@ -23,7 +23,7 @@
                     <a href="index.html">Center</a>
                 </li>
 
-                <li>
+                <li class="uk-active">
                     <a href="">Hosts</a>
                 </li>
 
@@ -31,7 +31,7 @@
                     <a href="#">Docker</a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li class="uk-active"><a href="images.html">Images</a></li>
+                            <li><a href="images.html">Images</a></li>
                             <li><a href="containers.html">Containers</a></li>
                         </ul>
                     </div>
@@ -42,7 +42,6 @@
     </div>
 
     <div id="root"></div>
-    <script src="js/images.js"></script>
 
 </body>
 

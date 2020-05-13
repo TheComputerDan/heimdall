@@ -1,27 +1,48 @@
-  
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Heimdall App</title>
-  
-  <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet">
-  <link href="containers.css" rel="stylesheet">
-  <link rel="stylesheet" href="nav.css">
+    <title>Heimdall App</title>
+    <link rel="stylesheet" href="uikit-3.4.6/css/uikit.css">
+    <script src="uikit-3.4.6/js/uikit.min.js"></script>
+    <script src="uikit-3.4.6/js/uikit-icons.min.js"></script>
 
 </head>
 
 <body>
-  <div class="sidebar">
-    <a href="containers.html">Containers</a>
-    <a href="images.html">Images</a>
-  </div>
-  <div id="root"></div>
+    <div class="uk-navbar-container uk-margin" uk-navbar>
+        <div class="uk-navbar-left">
+            <a href="index.html" class="uk-navbar-item uk-logo">Heimdall</a>
+            <ul class="uk-navbar-nav">
+                
+                <li>
+                    <a href="index.html">Center</a>
+                </li>
 
-  <script src="containers.js"></script>
+                <li>
+                    <a href="">Hosts</a>
+                </li>
+
+                <li>
+                    <a href="#">Docker</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="images.html">Images</a></li>
+                            <li class="uk-active"><a href="containers.html">Containers</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div id="root"></div>
+    <script src="js/containers.js"></script>
+
 </body>
 
 </html>

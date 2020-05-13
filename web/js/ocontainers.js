@@ -1,12 +1,12 @@
 const app = document.getElementById('root');
 
-const logo = document.createElement('img');
-logo.src = 'images/logo.png';
+// const logo = document.createElement('img');
+// logo.src = 'images/logo.png';
 
 const container = document.createElement('div');
 container.setAttribute('class', 'container');
 
-app.appendChild(logo);
+// app.appendChild(logo);
 app.appendChild(container);
 
 var request = new XMLHttpRequest();
@@ -20,7 +20,11 @@ if (request.status >= 200 && request.status < 400) {
       const card = document.createElement('div');
       card.setAttribute('class', 'card');
 
-      const dot = document.createElement('dot');
+      card.classList.add("uk-card" ,"uk-card-hover");
+      // card.classList.add("uk-card-hover");
+      
+      const dot = document.createElement('uk-icon');
+      dot.classList.add('heart');
 
       const h1 = document.createElement('h1');
       h1.textContent = docker_container.Names;
