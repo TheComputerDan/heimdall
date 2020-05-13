@@ -1,12 +1,13 @@
 const app = document.getElementById('root');
 
-const logo = document.createElement('img');
-logo.src = 'images/logo.png';
+// const logo = document.createElement('img');
+// logo.src = 'images/logo.png';
 
 const container = document.createElement('div');
-container.setAttribute('class', 'container');
+container.setAttribute('class', 'uk-container uk-container-large');
+container.setAttribute('uk-sortable',true);
 
-app.appendChild(logo);
+// app.appendChild(logo);
 app.appendChild(container);
 
 var request = new XMLHttpRequest();
@@ -19,6 +20,13 @@ if (request.status >= 200 && request.status < 400) {
   data.forEach(docker_images => {
       const card = document.createElement('div');
       card.setAttribute('class', 'card');
+      
+      card.classList.add("uk-card" ,
+        "uk-card-hover",
+        "uk-card-body", 
+        "uk-card-default",
+        "uk-margin",
+        "uk-background-muted");
 
       if (docker_images.RepoTags == null) {
         return;
@@ -27,6 +35,7 @@ if (request.status >= 200 && request.status < 400) {
       const repoTagsLength = docker_images.RepoTags.length;
       
       const h1 = document.createElement('h1');
+      h1.setAttribute('class','uk-card-title');
       h1.textContent = docker_images.RepoTags[0];
       h1.textContent = h1.textContent.split(':')[0]
 
