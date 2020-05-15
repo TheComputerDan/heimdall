@@ -2,6 +2,8 @@ const app = document.getElementById('root');
 
 // const logo = document.createElement('img');
 // logo.src = 'images/logo.png';
+var hostname = window.location.hostname;
+const endpoint = "http://" + hostname + ':8095/containers'
 
 const container = document.createElement('div');
 container.setAttribute('class', 'uk-container uk-container-large');
@@ -12,7 +14,7 @@ container.setAttribute('uk-sortable',true);
 app.appendChild(container);
 
 var request = new XMLHttpRequest();
-request.open('GET', 'http://localhost:8080/containers', true);
+request.open('GET', endpoint, true);
 request.onload = function () {
 
   // Begin accessing JSON data here
