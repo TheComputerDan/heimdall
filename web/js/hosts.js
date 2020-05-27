@@ -45,7 +45,8 @@ if (request.status >= 200 && request.status < 400) {
       p.setAttribute('style', 'white-space: pre;');
 
       p.textContent = `OS: ${docker_host.OSType}\r\n`;
-      p.textContent += `IP: ${docker_host.IPAddr}\r\n`;
+      p.textContent += `IPv4: ${docker_host.IP.ipv4}\r\n`;
+      p.textContent += `IPv6: ${docker_host.IP.ipv6}\r\n`;
     //   p.textContent += `ID: ${docker_host.Id.slice(0,11)}`;
 
     //   if (docker_host.State == "exited"){
