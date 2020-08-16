@@ -2,47 +2,52 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
-	"github.com/TheComputerDan/heimdall/docker_agent/docker/connect"
-	"github.com/TheComputerDan/heimdall/docker_agent/host"
+	_ "fmt"
+	"github.com/TheComputerDan/heimdall_server/internal/docker/connect"
+	"github.com/TheComputerDan/heimdall_server/internal/host"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
 	"net/http"
 )
 
+// GetHost returns info in the form of `Info` struct
+// defined in the `host.go` file in this project.
 func GetHost(w http.ResponseWriter, r *http.Request) {
 	hosts := []host.Info{}
-	rb := host.HostInfo()
+	rb := host.BuildInfo()
 	hosts = append(hosts, rb)
 	json.NewEncoder(w).Encode(hosts)
 }
 
-// GetContainers Returns the JSON retrieved from docker.sock
+// GetContainers returns the a list of containers in the form
+// of `[] types.Containers` from the docker types package.
 func GetContainers(w http.ResponseWriter, r *http.Request) {
 	hostContainers := connect.Containers()
 	json.NewEncoder(w).Encode(hostContainers)
 }
 
+// GetImages returns a list of images on the host machine.
 func GetImages(w http.ResponseWriter, r *http.Request) {
 	hostImages := connect.Images()
 	json.NewEncoder(w).Encode(hostImages)
 }
 
 func loadConfig() string {
-	viper.SetConfigName("heimdall.yaml")
+	viper.SetConfigName("agent.yaml")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("../config/")
 	viper.AddConfigPath("docker_agent/config/")
 	err := viper.ReadInConfig()
 	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+		panic(err)
 	}
-	portNum := viper.GetString("heimdall_port")
+	portNum := viper.GetString("server_api_port")
 	return portNum
 }
 
-// Start initiates the API
+// Start instantiates the API and sets up the endpoints for
+// consumption by the server.
 func Start() {
 	portNum := ":" + loadConfig()
 
