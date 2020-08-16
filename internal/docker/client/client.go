@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 	"fmt"
-	ds "github.com/TheComputerDan/heimdall/proto/dockerService"
+	ds "github.com/TheComputerDan/heimdall_server/proto/dockerService"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 	// "net/http"

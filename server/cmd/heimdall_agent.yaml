@@ -1,6 +1,0 @@
-default_polling_interval: 15s
-docker_agent:
-  docker_socket: /var/run/docker.sock
-  enabled: "true"
-interface_name: en0
-server_api_port: "8095"

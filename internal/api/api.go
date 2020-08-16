@@ -3,8 +3,8 @@ package api
 import (
 	"encoding/json"
 	_ "fmt"
-	"github.com/TheComputerDan/heimdall/docker_agent/docker/connect"
-	"github.com/TheComputerDan/heimdall/docker_agent/host"
+	"github.com/TheComputerDan/heimdall_server/internal/docker/connect"
+	"github.com/TheComputerDan/heimdall_server/internal/host"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"

@@ -2,12 +2,12 @@ package comms
 
 import (
 	"context"
-	ds "github.com/TheComputerDan/heimdall/proto/dockerService"
+	ds "github.com/TheComputerDan/heimdall_server/proto/dockerService"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/TheComputerDan/heimdall/docker_agent/docker/connect"
-	"github.com/TheComputerDan/heimdall/docker_agent/host"
+	"github.com/TheComputerDan/heimdall_server/internal/docker/connect"
+	"github.com/TheComputerDan/heimdall_server/internal/host"
 
 	"net"
 )
