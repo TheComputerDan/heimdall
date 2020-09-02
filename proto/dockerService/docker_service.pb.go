@@ -139,16 +139,15 @@ type EndpointSettings struct {
 	Links      []string            `protobuf:"bytes,2,rep,name=Links,proto3" json:"Links,omitempty"`
 	Aliases    []string            `protobuf:"bytes,3,rep,name=Aliases,proto3" json:"Aliases,omitempty"`
 	// Operational data
-	NetworkID           string            `protobuf:"bytes,4,opt,name=NetworkID,proto3" json:"NetworkID,omitempty"`
-	EndpointID          string            `protobuf:"bytes,5,opt,name=EndpointID,proto3" json:"EndpointID,omitempty"`
-	Gateway             string            `protobuf:"bytes,6,opt,name=Gateway,proto3" json:"Gateway,omitempty"`
-	IPAddress           string            `protobuf:"bytes,7,opt,name=IPAddress,proto3" json:"IPAddress,omitempty"`
-	IPPrefixLen         int64             `protobuf:"varint,8,opt,name=IPPrefixLen,proto3" json:"IPPrefixLen,omitempty"`
-	IPv6Gateway         string            `protobuf:"bytes,9,opt,name=IPv6Gateway,proto3" json:"IPv6Gateway,omitempty"`
-	GlobalIPv6Address   string            `protobuf:"bytes,10,opt,name=GlobalIPv6Address,proto3" json:"GlobalIPv6Address,omitempty"`
-	GlobalIPv6PrefixLen int64             `protobuf:"varint,11,opt,name=GlobalIPv6PrefixLen,proto3" json:"GlobalIPv6PrefixLen,omitempty"`
-	MacAddress          string            `protobuf:"bytes,12,opt,name=MacAddress,proto3" json:"MacAddress,omitempty"`
-	DriverOpts          map[string]string `protobuf:"bytes,13,rep,name=DriverOpts,proto3" json:"DriverOpts,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	NetworkID           string `protobuf:"bytes,4,opt,name=NetworkID,proto3" json:"NetworkID,omitempty"`
+	EndpointID          string `protobuf:"bytes,5,opt,name=EndpointID,proto3" json:"EndpointID,omitempty"`
+	Gateway             string `protobuf:"bytes,6,opt,name=Gateway,proto3" json:"Gateway,omitempty"`
+	IPAddress           string `protobuf:"bytes,7,opt,name=IPAddress,proto3" json:"IPAddress,omitempty"`
+	IPPrefixLen         int64  `protobuf:"varint,8,opt,name=IPPrefixLen,proto3" json:"IPPrefixLen,omitempty"`
+	IPv6Gateway         string `protobuf:"bytes,9,opt,name=IPv6Gateway,proto3" json:"IPv6Gateway,omitempty"`
+	GlobalIPv6Address   string `protobuf:"bytes,10,opt,name=GlobalIPv6Address,proto3" json:"GlobalIPv6Address,omitempty"`
+	GlobalIPv6PrefixLen int64  `protobuf:"varint,11,opt,name=GlobalIPv6PrefixLen,proto3" json:"GlobalIPv6PrefixLen,omitempty"`
+	MacAddress          string `protobuf:"bytes,12,opt,name=MacAddress,proto3" json:"MacAddress,omitempty"` // map<string,string> DriverOpts = 13;
 }
 
 func (x *EndpointSettings) Reset() {
@@ -265,13 +264,6 @@ func (x *EndpointSettings) GetMacAddress() string {
 		return x.MacAddress
 	}
 	return ""
-}
-
-func (x *EndpointSettings) GetDriverOpts() map[string]string {
-	if x != nil {
-		return x.DriverOpts
-	}
-	return nil
 }
 
 type SummaryNetworkSettings struct {
@@ -937,7 +929,7 @@ var file_docker_service_proto_rawDesc = []byte{
 	0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x49, 0x50, 0x76, 0x36, 0x41, 0x64, 0x64,
 	0x72, 0x65, 0x73, 0x73, 0x12, 0x22, 0x0a, 0x0c, 0x4c, 0x69, 0x6e, 0x6b, 0x4c, 0x6f, 0x63, 0x61,
 	0x6c, 0x49, 0x50, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0c, 0x4c, 0x69, 0x6e, 0x6b,
-	0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x49, 0x50, 0x73, 0x22, 0xcf, 0x04, 0x0a, 0x10, 0x45, 0x6e, 0x64,
+	0x4c, 0x6f, 0x63, 0x61, 0x6c, 0x49, 0x50, 0x73, 0x22, 0xbf, 0x03, 0x0a, 0x10, 0x45, 0x6e, 0x64,
 	0x70, 0x6f, 0x69, 0x6e, 0x74, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x12, 0x41, 0x0a,
 	0x0a, 0x49, 0x50, 0x41, 0x4d, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x0b, 0x32, 0x21, 0x2e, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
@@ -965,16 +957,7 @@ var file_docker_service_proto_rawDesc = []byte{
 	0x0b, 0x20, 0x01, 0x28, 0x03, 0x52, 0x13, 0x47, 0x6c, 0x6f, 0x62, 0x61, 0x6c, 0x49, 0x50, 0x76,
 	0x36, 0x50, 0x72, 0x65, 0x66, 0x69, 0x78, 0x4c, 0x65, 0x6e, 0x12, 0x1e, 0x0a, 0x0a, 0x4d, 0x61,
 	0x63, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a,
-	0x4d, 0x61, 0x63, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x4f, 0x0a, 0x0a, 0x44, 0x72,
-	0x69, 0x76, 0x65, 0x72, 0x4f, 0x70, 0x74, 0x73, 0x18, 0x0d, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2f,
-	0x2e, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45,
-	0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x2e,
-	0x44, 0x72, 0x69, 0x76, 0x65, 0x72, 0x4f, 0x70, 0x74, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52,
-	0x0a, 0x44, 0x72, 0x69, 0x76, 0x65, 0x72, 0x4f, 0x70, 0x74, 0x73, 0x1a, 0x3d, 0x0a, 0x0f, 0x44,
-	0x72, 0x69, 0x76, 0x65, 0x72, 0x4f, 0x70, 0x74, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10,
-	0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79,
-	0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x22, 0xc7, 0x01, 0x0a, 0x16, 0x53,
+	0x4d, 0x61, 0x63, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x22, 0xc7, 0x01, 0x0a, 0x16, 0x53,
 	0x75, 0x6d, 0x6d, 0x61, 0x72, 0x79, 0x4e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x53, 0x65, 0x74,
 	0x74, 0x69, 0x6e, 0x67, 0x73, 0x12, 0x4f, 0x0a, 0x08, 0x4e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b,
 	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x33, 0x2e, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72,
@@ -1093,7 +1076,10 @@ var file_docker_service_proto_rawDesc = []byte{
 	0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x53, 0x65, 0x72,
 	0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
+	0x54, 0x68, 0x65, 0x43, 0x6f, 0x6d, 0x70, 0x75, 0x74, 0x65, 0x72, 0x44, 0x61, 0x6e, 0x2f, 0x68,
+	0x65, 0x69, 0x6d, 0x64, 0x61, 0x6c, 0x6c, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1108,7 +1094,7 @@ func file_docker_service_proto_rawDescGZIP() []byte {
 	return file_docker_service_proto_rawDescData
 }
 
-var file_docker_service_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_docker_service_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_docker_service_proto_goTypes = []interface{}{
 	(*ContainersRequest)(nil),      // 0: dockerService.ContainersRequest
 	(*EndpointIPAMConfig)(nil),     // 1: dockerService.EndpointIPAMConfig
@@ -1121,32 +1107,30 @@ var file_docker_service_proto_goTypes = []interface{}{
 	(*ImagesResponse)(nil),         // 8: dockerService.ImagesResponse
 	(*HostRequest)(nil),            // 9: dockerService.HostRequest
 	(*HostResponse)(nil),           // 10: dockerService.HostResponse
-	nil,                            // 11: dockerService.EndpointSettings.DriverOptsEntry
-	nil,                            // 12: dockerService.SummaryNetworkSettings.NetworksEntry
-	nil,                            // 13: dockerService.ContainersResponse.LabelsEntry
-	nil,                            // 14: dockerService.ImagesResponse.LabelsEntry
+	nil,                            // 11: dockerService.SummaryNetworkSettings.NetworksEntry
+	nil,                            // 12: dockerService.ContainersResponse.LabelsEntry
+	nil,                            // 13: dockerService.ImagesResponse.LabelsEntry
 }
 var file_docker_service_proto_depIdxs = []int32{
 	1,  // 0: dockerService.EndpointSettings.IPAMConfig:type_name -> dockerService.EndpointIPAMConfig
-	11, // 1: dockerService.EndpointSettings.DriverOpts:type_name -> dockerService.EndpointSettings.DriverOptsEntry
-	12, // 2: dockerService.SummaryNetworkSettings.Networks:type_name -> dockerService.SummaryNetworkSettings.NetworksEntry
-	4,  // 3: dockerService.ContainersResponse.Ports:type_name -> dockerService.Port
-	13, // 4: dockerService.ContainersResponse.Labels:type_name -> dockerService.ContainersResponse.LabelsEntry
-	3,  // 5: dockerService.ContainersResponse.NetworkSettings:type_name -> dockerService.SummaryNetworkSettings
-	5,  // 6: dockerService.ContainersResponse.Mounts:type_name -> dockerService.MountPoint
-	14, // 7: dockerService.ImagesResponse.Labels:type_name -> dockerService.ImagesResponse.LabelsEntry
-	2,  // 8: dockerService.SummaryNetworkSettings.NetworksEntry.value:type_name -> dockerService.EndpointSettings
-	0,  // 9: dockerService.DockerAgent.Containers:input_type -> dockerService.ContainersRequest
-	7,  // 10: dockerService.DockerAgent.Images:input_type -> dockerService.ImagesRequest
-	9,  // 11: dockerService.DockerAgent.Host:input_type -> dockerService.HostRequest
-	6,  // 12: dockerService.DockerAgent.Containers:output_type -> dockerService.ContainersResponse
-	8,  // 13: dockerService.DockerAgent.Images:output_type -> dockerService.ImagesResponse
-	10, // 14: dockerService.DockerAgent.Host:output_type -> dockerService.HostResponse
-	12, // [12:15] is the sub-list for method output_type
-	9,  // [9:12] is the sub-list for method input_type
-	9,  // [9:9] is the sub-list for extension type_name
-	9,  // [9:9] is the sub-list for extension extendee
-	0,  // [0:9] is the sub-list for field type_name
+	11, // 1: dockerService.SummaryNetworkSettings.Networks:type_name -> dockerService.SummaryNetworkSettings.NetworksEntry
+	4,  // 2: dockerService.ContainersResponse.Ports:type_name -> dockerService.Port
+	12, // 3: dockerService.ContainersResponse.Labels:type_name -> dockerService.ContainersResponse.LabelsEntry
+	3,  // 4: dockerService.ContainersResponse.NetworkSettings:type_name -> dockerService.SummaryNetworkSettings
+	5,  // 5: dockerService.ContainersResponse.Mounts:type_name -> dockerService.MountPoint
+	13, // 6: dockerService.ImagesResponse.Labels:type_name -> dockerService.ImagesResponse.LabelsEntry
+	2,  // 7: dockerService.SummaryNetworkSettings.NetworksEntry.value:type_name -> dockerService.EndpointSettings
+	0,  // 8: dockerService.DockerAgent.Containers:input_type -> dockerService.ContainersRequest
+	7,  // 9: dockerService.DockerAgent.Images:input_type -> dockerService.ImagesRequest
+	9,  // 10: dockerService.DockerAgent.Host:input_type -> dockerService.HostRequest
+	6,  // 11: dockerService.DockerAgent.Containers:output_type -> dockerService.ContainersResponse
+	8,  // 12: dockerService.DockerAgent.Images:output_type -> dockerService.ImagesResponse
+	10, // 13: dockerService.DockerAgent.Host:output_type -> dockerService.HostResponse
+	11, // [11:14] is the sub-list for method output_type
+	8,  // [8:11] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_docker_service_proto_init() }
@@ -1294,7 +1278,7 @@ func file_docker_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_docker_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   15,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

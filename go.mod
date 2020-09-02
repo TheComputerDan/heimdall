@@ -1,6 +1,6 @@
-module github.com/TheComputerDan/heimdall_server
+module github.com/TheComputerDan/sentinel_server
 
-go 1.14
+go 1.15
 
 require (
 	github.com/TheComputerDan/heimdall v0.0.0-20200515021211-721a60a1a303
@@ -12,7 +12,9 @@ require (
 	github.com/golang/protobuf v1.4.1
 	github.com/gorilla/handlers v1.4.2
 	github.com/gorilla/mux v1.7.4
+	github.com/lib/pq v1.8.0
 	github.com/opencontainers/go-digest v1.0.0 // indirect
+	github.com/spf13/pflag v1.0.3
 	github.com/spf13/viper v1.7.1
 	google.golang.org/grpc v1.27.0
 	google.golang.org/protobuf v1.25.0

@@ -3,25 +3,28 @@ package api
 import (
 	"encoding/json"
 	_ "fmt"
-	"github.com/TheComputerDan/heimdall_server/internal/docker/connect"
-	"github.com/TheComputerDan/heimdall_server/internal/host"
+	"github.com/TheComputerDan/sentinel_server/internal/config"
+	"github.com/TheComputerDan/sentinel_server/internal/docker/connect"
+	"github.com/TheComputerDan/sentinel_server/internal/host"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/spf13/viper"
+	"log"
 	"net/http"
 )
 
-// GetHost returns info in the form of `Info` struct
+// GetHost returns info in the form of `Configuration` struct
 // defined in the `host.go` file in this project.
 func GetHost(w http.ResponseWriter, r *http.Request) {
-	hosts := []host.Info{}
-	rb := host.BuildInfo()
-	hosts = append(hosts, rb)
+	var hosts []host.Info
+
+	hostInfo := host.Info{}
+	hostInfo.Init()
+
+	hosts = append(hosts, hostInfo)
 	json.NewEncoder(w).Encode(hosts)
 }
 
-// GetContainers returns the a list of containers in the form
-// of `[] types.Containers` from the docker types package.
+// GetContainers returns the a list of containers.
 func GetContainers(w http.ResponseWriter, r *http.Request) {
 	hostContainers := connect.Containers()
 	json.NewEncoder(w).Encode(hostContainers)
@@ -33,30 +36,35 @@ func GetImages(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(hostImages)
 }
 
-func loadConfig() string {
-	viper.SetConfigName("agent.yaml")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath("../config/")
-	viper.AddConfigPath("docker_agent/config/")
-	err := viper.ReadInConfig()
+//getRESTPort loads the config, and searches for rest_port, defaults to 8096 otherwise
+func getRESTPort() string {
+	var portNum string
+
+	sConfig := config.Load()
+	err := sConfig.ReadInConfig()
 	if err != nil {
-		panic(err)
+		//TODO Add more robust error handling
+		log.Println("config not found defaulting to port 8096")
+		portNum = "8096"
+	} else{
+		portNum = sConfig.GetString("rest_port")
 	}
-	portNum := viper.GetString("server_api_port")
 	return portNum
 }
 
 // Start instantiates the API and sets up the endpoints for
 // consumption by the server.
 func Start() {
-	portNum := ":" + loadConfig()
+	portNum := ":" + getRESTPort()
 
 	router := mux.NewRouter()
 	router.HandleFunc("/containers", GetContainers)
 	router.HandleFunc("/images", GetImages)
 	router.HandleFunc("/host", GetHost)
 	handlers.AllowedOrigins([]string{"*"})
-	// http.ListenAndServe(":8080", router)
+
+	log.Printf("Running server on port %s", portNum)
+
 	http.ListenAndServe(portNum, handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router))
 	// handle CORS for local testing purposes
 }

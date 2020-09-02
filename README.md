@@ -1,9 +1,4 @@
-# heimdall (Working title)
+# Sentinel
 
 ## Description:
-The goal of this project is to create a centralized way to manage Containers and VMs across multiple hosts free of clustering constraints. 
-
-## Notice:
-
-CSS Framework: 
-> UIKIT: https://getuikit.com/
+A centralized way to manage and monitor your Docker Containers, VMs, and to an extent Hosts and their services.

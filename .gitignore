@@ -1,2 +1,3 @@
 .vscode
-config/cmd/cfg
+.idea
+.DS_Store

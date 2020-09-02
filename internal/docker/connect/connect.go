@@ -8,7 +8,7 @@ import (
 
 // Containers instantiates a connection to the containers endpoint and returns a list of type `[]types.Container`
 func Containers() []types.Container {
-	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	cli, err := client.NewEnvClient()
 	if err != nil {
 		panic(err)
 	}
@@ -22,7 +22,7 @@ func Containers() []types.Container {
 
 // Images instantiates a connection to the images endpoint and returns a list of type `[]types.ImageSummary`
 func Images() []types.ImageSummary {
-	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	cli, err := client.NewEnvClient()
 	if err != nil {
 		panic(err)
 	}

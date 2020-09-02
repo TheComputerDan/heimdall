@@ -1,6 +1,6 @@
 syntax = "proto3";
 package dockerService;
-
+option go_package = "github.com/TheComputerDan/heimdall_server";
 
 
 message ContainersRequest {
@@ -27,7 +27,7 @@ message EndpointSettings {
     string GlobalIPv6Address = 10;
     int64 GlobalIPv6PrefixLen = 11;
     string MacAddress = 12;
-    map<string,string> DriverOpts = 13;
+    // map<string,string> DriverOpts = 13;
 }
 
 message SummaryNetworkSettings {

@@ -2,25 +2,31 @@ package comms
 
 import (
 	"context"
-	ds "github.com/TheComputerDan/heimdall_server/proto/dockerService"
+	ds "github.com/TheComputerDan/sentinel_server/proto/dockerService"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/TheComputerDan/heimdall_server/internal/docker/connect"
-	"github.com/TheComputerDan/heimdall_server/internal/host"
+	"github.com/TheComputerDan/sentinel_server/internal/docker/connect"
+	"github.com/TheComputerDan/sentinel_server/internal/host"
 
 	"net"
 )
 
 type server struct{}
 
+// Start initializes the grpc serverside
 func Start() {
+	var (
+		listener net.Listener
+		srv      *grpc.Server
+	)
+
 	listener, err := net.Listen("tcp", ":8096")
 	if err != nil {
 		panic(err)
 	}
 
-	srv := grpc.NewServer()
+	srv = grpc.NewServer()
 	ds.RegisterDockerAgentServer(srv, &server{})
 	reflection.Register(srv)
 
@@ -75,7 +81,6 @@ func (s *server) Containers(request *ds.ContainersRequest, stream ds.DockerAgent
 				GlobalIPv6Address:   netSetting.GlobalIPv6Address,
 				GlobalIPv6PrefixLen: int64(netSetting.GlobalIPv6PrefixLen),
 				MacAddress:          netSetting.MacAddress,
-				DriverOpts:          netSetting.DriverOpts,
 			}
 
 			NetworkSettings = &ds.SummaryNetworkSettings{
@@ -142,7 +147,8 @@ func (s *server) Images(request *ds.ImagesRequest, stream ds.DockerAgent_ImagesS
 }
 
 func (s *server) Host(ctx context.Context, request *ds.HostRequest) (*ds.HostResponse, error) {
-	hostInfo := host.BuildInfo()
+	hostInfo := host.Info{}
+	hostInfo.Init()
 
 	return &ds.HostResponse{
 		Hostname: hostInfo.Hostname,
